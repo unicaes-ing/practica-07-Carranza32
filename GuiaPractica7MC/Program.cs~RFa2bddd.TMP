@@ -1,0 +1,267 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GuiaPractica7MC
+{
+    class Program
+    {
+        #region atributos
+        private static bool isNumber;
+        #endregion
+
+        static void Main(string[] args)
+        {
+            int opc = 0;
+            bool isNumber;
+            do
+            {
+                do
+                {
+                    Console.Clear();
+                    Console.WriteLine("Escoja una opcion");
+                    Console.WriteLine("1 - Ejercicio 1");
+                    Console.WriteLine("2 - Ejercicio 2");
+                    Console.WriteLine("3 - Ejercicio 3");
+                    Console.WriteLine("4 - Ejercicio 4");
+                    Console.WriteLine("5 - Ejercicio 5");
+                    Console.WriteLine("6 - Ejercicio 6");
+                    Console.WriteLine("0 - Salir");
+                    isNumber = int.TryParse(Console.ReadLine(), out opc);
+                } while (isNumber == false || opc < 0);
+                switch (opc)
+                {
+                    case 1:
+                        Console.Clear();
+                        Ejercicio1();
+                        Console.ReadKey();
+                        break;
+                    case 2:
+                        Console.Clear();
+                        Ejercicio2();
+                        Console.ReadKey();
+                        break;
+                    case 3:
+                        Console.Clear();
+                        Ejercicio3();
+                        Console.ReadKey();
+                        break;
+                    case 4:
+                        Console.Clear();
+                        Ejercicio4();
+                        Console.ReadKey();
+                        break;
+                    case 5:
+                        Console.Clear();
+                        Ejercicio5();
+                        Console.ReadKey();
+                        break;
+                    case 6:
+                        Console.Clear();
+                        Ejercicio6();
+                        Console.ReadKey();
+                        break;
+                    default:
+                        break;
+                }
+            } while (opc != 0);
+        }
+
+        private static void Ejercicio1()
+        {
+            Console.WriteLine("Escriba la cantidad de personas a la que les agregara la edad");
+            int personas = int.Parse(Console.ReadLine());
+            int[] edades = new int[personas];
+
+            int mayores = 0; int menores = 0;
+
+            for (int i = 0; i < personas; i++)
+            {
+                Console.WriteLine("Ingresa la edad de la persona {0}", i + 1);
+                edades[i] = int.Parse(Console.ReadLine());
+
+                if (edades[i] < 18)
+                {
+                    menores++;
+                }
+                else
+                {
+                    mayores++;
+                }
+            }
+            
+            Console.WriteLine("Mayores: {0} Menores: {1}", mayores, menores);
+        }
+
+        private static void Ejercicio2()
+        {
+            Console.WriteLine("Escriba la cantidad de numeros que ingresara");
+            int num = int.Parse(Console.ReadLine());
+            int[] numeros = new int[num];
+
+            int pares = 0; int impares = 0;
+
+            for (int i = 0; i < numeros.Length; i++)
+            {
+                Console.WriteLine("Ingresa un numero cualquiera");
+                numeros[i] = int.Parse(Console.ReadLine());
+            }
+
+            foreach (var item in numeros)
+            {
+                if (item % 2 == 0)
+                {
+                    pares++;
+                }
+                else
+                {
+                    impares++;
+                }
+            }
+            Console.WriteLine("Pares: {0} Impares: {1}", pares, impares);
+        }
+
+        private static void Ejercicio3()
+        {
+            string[][] liga;
+            int escribir = 0;
+
+            Console.WriteLine("Escriba la cantidad de equipos");
+            escribir = int.Parse(Console.ReadLine());
+            liga = new string[escribir][];
+
+
+            for (int i = 0; i < liga.Length; i++)
+            {
+                Console.Clear();
+                Console.WriteLine("Escriba la cantidad de jugadores del equipo {0}", i + 1);
+                escribir = int.Parse(Console.ReadLine());
+                liga[i] = new string[escribir + 1];
+            }
+
+            for (int i = 0; i < liga.Length; i++)
+            {
+                Console.WriteLine("Ingrese el nombre de su equipo");
+                liga[i][0] = Console.ReadLine();
+
+                for (int j = 1; j < liga[i].Length; j++)
+                {
+                    Console.WriteLine("Ingrese el nombre del jugador {0}", j);
+                    liga[i][j] = Console.ReadLine();
+                }
+                Console.Clear();
+            }
+
+            Console.WriteLine("Liga:");
+
+            for (int i = 0; i < liga.Length; i++)
+            {
+                Console.WriteLine("Equipo: {0}", liga[i][0]);
+                Console.WriteLine("Jugadores: ");
+                for (int j = 1; j < liga[i].Length; j++)
+                {
+                    Console.WriteLine("["+j+"]" + liga[i][j]);
+                }
+            }
+            
+        }
+
+        private static void Ejercicio4()
+        {
+            int[,] numeros = new int[5, 5];
+
+            for (int i = 0; i < numeros.GetLength(0); i++)
+            {
+                for (int j = 0; j < numeros.GetLength(1); j++)
+                {
+                    Console.WriteLine("Ingrese un numero cualquiera en la fila " + i);
+                    numeros[i, j] = int.Parse(Console.ReadLine());
+                }
+            }
+
+            Console.Clear();
+            foreach (int item in ReverseFuncion(numeros))
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        public static int[,] ReverseFuncion(int[,] numeros)
+        {
+            for (int i = 0; i <= numeros.GetUpperBound(0); i++)
+            {
+                for (int j = 0; j <= numeros.GetUpperBound(1) / 2; j++)
+                {
+                    int temp = numeros[i, j];
+                    numeros[i, j] = numeros[i, numeros.GetUpperBound(1) - j];
+                    numeros[i, numeros.GetUpperBound(1) - j] = temp;
+                }
+            }
+
+            return numeros;
+        }
+
+        private static void Ejercicio5()
+        {
+            int[,] arreglo1 = new int[3, 3];
+            int[,] arreglo2 = new int[3, 3];
+
+            for (int i = 0; i < arreglo1.GetLength(0); i++)
+            {
+                for (int j = 0; j < arreglo1.GetLength(1); j++)
+                {
+                    Console.WriteLine("Ingrese un numero cualquiera en la fila " + i + " del arreglo 1");
+                    arreglo1[i, j] = int.Parse(Console.ReadLine());
+                }
+            }
+
+            for (int i = 0; i < arreglo2.GetLength(0); i++)
+            {
+                for (int j = 0; j < arreglo2.GetLength(1); j++)
+                {
+                    Console.WriteLine("Ingrese un numero cualquiera en la fila " + i + " del arreglo 2");
+                    arreglo2[i, j] = int.Parse(Console.ReadLine());
+                }
+            }
+
+            Console.Clear();
+            Console.WriteLine(SumarArreglos(arreglo1, arreglo2));
+        }
+
+        public static int SumarArreglos(int[,] arreglo1, int[,] arreglo2)
+        {
+            int resultado = 0;
+            for (int i = 0; i < arreglo1.GetLength(0); i++)
+            {
+                for (int j = 0; j < arreglo1.GetLength(1); j++)
+                {
+                    resultado += arreglo1[i, j] + arreglo2[i, j];
+                }
+            }
+
+            return resultado;
+        }
+
+        private static void Ejercicio6()
+        {
+            int[,] arreglo = new int[6, 6];
+            Random random = new Random();
+            int numero = 0;
+
+            for (int i = 0; i < arreglo.GetLength(0); i++)
+            {
+                for (int j = 0; j < arreglo.GetLength(1); j++)
+                {
+                    numero = random.Next(10, 99);
+                    numero = numero + numero;
+                    if (numero)
+                    {
+
+                    }
+                }
+            }
+        }
+    }
+}
